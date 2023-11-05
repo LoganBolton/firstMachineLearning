@@ -4,6 +4,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 from keras import backend as K
+import matplotlib.pyplot as plt
+
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
@@ -52,3 +54,21 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
+plt.figure(figsize=(12, 4))
+
+# Plotting accuracy
+plt.subplot(1, 2, 1)
+plt.plot(hist.history['accuracy'], label='Training Accuracy')
+plt.plot(hist.history['val_accuracy'], label='Validation Accuracy')
+plt.legend()
+plt.title('Accuracy over Epochs')
+
+# Plotting loss
+plt.subplot(1, 2, 2)
+plt.plot(hist.history['loss'], label='Training Loss')
+plt.plot(hist.history['val_loss'], label='Validation Loss')
+plt.legend()
+plt.title('Loss over Epochs')
+
+plt.tight_layout()
+plt.show()
